@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Son Sport Rehab System</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><div class="logo">SSR</div><div><h1>Son Sport Rehab</h1><p>Sport Rehab Management System</p></div></div>
+    <nav>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#assessment">Assessment / SOAP</a>
+      <a href="#ai">AI Rehab Assistant</a>
+      <a href="#injury">Injury Library</a>
+      <a href="#exercise">Exercise Library</a>
+      <a href="#muscle">Muscle Library</a>
+      <a href="#tests">Special Tests</a>
+      <a href="#rts">Return To Sport</a>
+      <a href="#notes">Notes</a>
+    </nav>
+  </aside>
+
+  <main>
+    <section id="dashboard" class="hero">
+      <div>
+        <p class="tag">Sports Science • Rehabilitation • Return To Sport</p>
+        <h2>Clinical Dashboard</h2>
+        <p>Sistem ringkas untuk assessment, SOAP, database, AI treatment planner, injury library, exercise library dan RTS.</p>
+        <div class="actions">
+          <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeYBTi6BI1lxlgEuftrusXB3z7MRvtkK3PYuBiBDEN44IvV_g/viewform?usp=header" target="_blank">Buka Google Form SOAP</a>
+          <a class="btn outline" href="https://docs.google.com/spreadsheets/d/1mp3HJuzTvKYuSACVz_z3NsSNRML9COUXhMF86OSMoRY/edit?usp=drivesdk" target="_blank">Buka Google Sheets</a>
+        </div>
+      </div>
+      <div class="stats">
+        <div><b>SOAP</b><span>Google Form</span></div>
+        <div><b>Database</b><span>Google Sheets</span></div>
+        <div><b>AI</b><span>1 sesi rawatan</span></div>
+        <div><b>RTS</b><span>Criteria based</span></div>
+      </div>
+    </section>
+
+    <section id="assessment" class="section">
+      <h2>Assessment / SOAP Workflow</h2>
+      <div class="grid cards">
+        <article><h3>1. Subjective</h3><p>Chief complaint, mechanism, pain score, aggravating/easing factor, sport demand.</p></article>
+        <article><h3>2. Objective</h3><p>Observation, palpation, ROM, MMT, swelling, functional test, special test.</p></article>
+        <article><h3>3. Assessment</h3><p>Clinical impression, problem list, tissue involved, severity, prognosis.</p></article>
+        <article><h3>4. Plan</h3><p>Modaliti, manual therapy, exercise, HEP, progression criteria, RTS target.</p></article>
+      </div>
+    </section>
+
+    <section id="ai" class="section glass">
+      <h2>AI Rehab Assistant - SOAP + 1 Sesi Treatment</h2>
+      <p>Masukkan maklumat pesakit. Sistem akan jana cadangan asas untuk 1 sesi rawatan. Ini bukan diagnosis muktamad.</p>
+      <div class="formgrid">
+        <input id="sport" placeholder="Sukan: futsal / volleyball / rugby" />
+        <select id="injurySelect">
+          <option>Ankle Sprain</option><option>ACL Injury</option><option>Meniscus Injury</option><option>Patellar Tendinopathy</option><option>Achilles Tendinopathy</option><option>Hamstring Strain</option><option>Shoulder Impingement</option><option>Low Back Pain</option><option>Wrist TFCC Injury</option><option>General Muscle Strain</option>
+        </select>
+        <input id="pain" type="number" min="0" max="10" placeholder="Pain 0-10" />
+        <select id="phase"><option>Acute</option><option>Subacute</option><option>Strength</option><option>Functional</option><option>RTS</option></select>
+        <select id="duration"><option>30 minit</option><option selected>45 minit</option><option>60 minit</option></select>
+        <input id="equipment" placeholder="Equipment: band, dumbbell, TENS, ice, ultrasound" />
+      </div>
+      <button class="btn" onclick="generateRehab()">Generate SOAP + Treatment</button>
+      <button class="btn outline" onclick="window.print()">Print / Save PDF</button>
+      <div id="rehabOutput" class="output"></div>
+    </section>
+
+    <section id="injury" class="section">
+      <h2>Injury Library</h2>
+      <input class="search" id="injurySearch" onkeyup="filterCards('injurySearch','injuryCards')" placeholder="Cari injury / joint..." />
+      <div class="grid cards" id="injuryCards"></div>
+    </section>
+
+    <section id="exercise" class="section">
+      <h2>Exercise Library - Full Body</h2>
+      <input class="search" id="exerciseSearch" onkeyup="filterCards('exerciseSearch','exerciseCards')" placeholder="Cari exercise / otot / joint..." />
+      <div class="grid cards" id="exerciseCards"></div>
+    </section>
+
+    <section id="muscle" class="section">
+      <h2>Muscle Library</h2>
+      <div class="grid cards" id="muscleCards"></div>
+    </section>
+
+    <section id="tests" class="section">
+      <h2>Special Test Library</h2>
+      <input class="search" id="testSearch" onkeyup="filterCards('testSearch','testCards')" placeholder="Cari special test..." />
+      <div class="grid cards" id="testCards"></div>
+    </section>
+
+    <section id="rts" class="section glass">
+      <h2>Return To Sport Criteria</h2>
+      <div class="grid cards">
+        <article><h3>Minimum Criteria</h3><ul><li>Pain ≤2/10</li><li>ROM hampir penuh</li><li>No swelling selepas latihan</li><li>Strength ≥90%</li></ul></article>
+        <article><h3>Functional Criteria</h3><ul><li>Single leg balance stable</li><li>Hop test LSI ≥90%</li><li>Y-Balance asymmetry rendah</li><li>Landing mechanics baik</li></ul></article>
+        <article><h3>Sport Specific</h3><ul><li>Sprint / deceleration</li><li>Cutting / change of direction</li><li>Jump landing</li><li>Non-contact → contact → full play</li></ul></article>
+      </div>
+    </section>
+
+    <section id="notes" class="section">
+      <h2>Notes</h2>
+      <div class="grid cards"><article><h3>Modaliti</h3><p>Acute: ice, compression, elevation, protected loading. Subacute/chronic: heat before exercise, TENS untuk pain, ultrasound hanya jika sesuai dan bukan rawatan utama.</p></article><article><h3>Progression Rule</h3><p>Naik fasa bila pain tidak bertambah 24 jam, ROM meningkat, strength bertambah dan movement quality baik.</p></article><article><h3>Safety</h3><p>Rujuk doktor/fisio jika deformity, suspected fracture, neurological sign, severe swelling, night pain, fever, atau pain makin teruk.</p></article></div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
